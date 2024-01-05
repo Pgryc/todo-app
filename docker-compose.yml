@@ -1,0 +1,15 @@
+version: '3'
+services:
+  backend:
+    build: ./backend/
+    ports:
+      - "8080:8080"
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=todo
+      - POSTGRES_USER=app_user
+      - POSTGRES_PASSWORD=app_pass
+    ports:
+      - "5432:5432"
+    restart: always
