@@ -2,12 +2,12 @@ FROM golang:alpine
 
 WORKDIR /app
 
-COPY go.mod go.sum
+COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
 RUN go build -o ./bin/api ./cmd/api/ \
-    && fo build -o ./bin/migrate ./cmd/migrate/
+    && go build -o ./bin/migrate ./cmd/migrate/
 
 CMD ["./bin/api/api"]
 EXPOSE 8080
