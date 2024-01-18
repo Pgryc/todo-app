@@ -7,12 +7,12 @@ import (
 )
 
 type DTO struct {
-	ID             string `json:"id"`
-	Title          string `json:"title"`
-	Description    string `json:"description"`
-	Created_date   string `json:"created_date"`
-	Completed_date string `json:"completed_date"`
-	Deleted_date   string `json:"deleted_date"`
+	ID            string `json:"id"`
+	Title         string `json:"title"`
+	Description   string `json:"description"`
+	CreatedDate   string `json:"created_date"`
+	CompletedDate string `json:"completed_date"`
+	DeletedDate   string `json:"deleted_date"`
 }
 
 type Form struct {
@@ -20,7 +20,7 @@ type Form struct {
 	Description string `json:"description"`
 }
 
-type Item struct {
+type Task struct {
 	ID            uuid.UUID `gorm:"primarykey"`
 	Title         string
 	Description   string
@@ -29,4 +29,4 @@ type Item struct {
 	DeletedDate   time.Time
 }
 
-type Items []*Item
+type Tasks []*Task

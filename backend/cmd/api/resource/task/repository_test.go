@@ -46,7 +46,30 @@ func TestRepository_Create(t *testing.T) {
 		WillReturnResult(sqlmock.NewResult(1, 1))
 	mock.ExpectCommit()
 
-	task := &task.Task{Id: id, Title: "Title", Description: "Description", CreatedDate: time.Now()}
+	task := &task.Task{ID: id, Title: "Title", Description: "Description", CreatedDate: time.Now()}
 	_, err = repo.Create(task)
 	testUtil.NoError(t, err)
+}
+
+func TestRepository_Update(t *testing.T) {
+	t.Parallel()
+
+	db, mock, err := mockDB.NewMockDB()
+	testUtil.NoError(t, err)
+
+	repo := task.NewRepository(db)
+
+	id := uuid.New()
+	_ = sqlmock.NewRows([]string{"id", "title", "description"}).
+		AddRow(id, "Task1", "Description1")
+
+	mock.ExpectBegin()
+	mock.ExpectExec("^UPDATE \"tasks\" SET \"deleted_at\"").
+		WithArgs(mockDB.AnyTime{}, id).
+		WillReturnResult(sqlmock.NewResult(1, 1))
+	mock.ExpectCommit()
+
+	rows, err := repo.Delete(id)
+	testUtil.NoError(t, err)
+	testUtil.Equal(t, 1, rows)
 }
