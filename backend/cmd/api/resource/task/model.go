@@ -16,8 +16,8 @@ type DTO struct {
 }
 
 type Form struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	Title       string `json:"title" validate:"required,max=255"`
+	Description string `json:"description" validate:"required,alphaspace,max=255"`
 }
 
 type Task struct {
