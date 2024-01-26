@@ -16,33 +16,33 @@ func NewRepository(db *gorm.DB) *Repository {
 }
 
 func (r *Repository) List() (Tasks, error) {
-	items := make([]*Task, 0)
-	if err := r.db.Find(&items).Error; err != nil {
+	tasks := make([]*Task, 0)
+	if err := r.db.Find(&tasks).Error; err != nil {
 		return nil, err
 	}
-	return items, nil
+	return tasks, nil
 }
 
-func (r *Repository) Create(item *Task) (*Task, error) {
-	if err := r.db.Create(item).Error; err != nil {
+func (r *Repository) Create(task *Task) (*Task, error) {
+	if err := r.db.Create(task).Error; err != nil {
 		return nil, err
 	}
-	return item, nil
+	return task, nil
 }
 
 func (r *Repository) Read(id uuid.UUID) (*Task, error) {
-	item := &Task{}
-	if err := r.db.Where("id = ?", id).First(&item).Error; err != nil {
+	task := &Task{}
+	if err := r.db.Where("id = ?", id).First(&task).Error; err != nil {
 		return nil, err
 	}
-	return item, nil
+	return task, nil
 }
 
-func (r *Repository) Update(item *Task) (int64, error) {
+func (r *Repository) Update(task *Task) (int64, error) {
 	result := r.db.Model(&Task{}).
 		Select("Title", "Description", "Created_date", "Completed_date", "Deleted_date").
-		Where("id = ?", item.ID).
-		Updates(item)
+		Where("id = ?", task.ID).
+		Updates(task)
 	return result.RowsAffected, result.Error
 }
 
