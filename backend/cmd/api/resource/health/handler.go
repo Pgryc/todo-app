@@ -9,4 +9,7 @@ import "net/http"
 // @tags health
 // @success 200
 // @router /../livez [get]
-func Read(w http.ResponseWriter, r *http.Request) {}
+func Read(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(`{"message": "Server is running."}`))
+}
