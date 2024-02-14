@@ -1,0 +1,23 @@
+body {
+  background-color: gray;
+}
+.App {
+  max-width: 750px;
+  margin: auto;
+}
+
+.TaskList {
+  margin: auto;
+  /* width: 60%; */
+}
+
+.Header {
+
+}
+
+.Footer {
+  /* margin-bottom: 0px; */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
