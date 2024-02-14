@@ -4,11 +4,15 @@ services:
     build: ./backend/
     env_file: .env
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     depends_on:
       db:
         condition: service_healthy
     command: [ "sh", "-c", "./bin/migrate up && ./bin/api/api"]
+    develop:
+      watch:
+        - path: ./backend
+          action: rebuild
 
   db:
     image: postgres:alpine
@@ -24,3 +28,17 @@ services:
       timeout: 5s
       retries: 5
     restart: always
+
+  frontend:
+    build: ./frontend/
+    ports:
+      - "127.0.0.1:3000:3000"
+    develop:
+      watch:
+      - action: sync
+        path: ./frontend
+        target: /usr/src/app
+        ignore:
+          - node_modules/
+      - action: rebuild
+        path: package.json
