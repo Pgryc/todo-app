@@ -1,5 +1,12 @@
+:root {
+  --bg:  #233142;
+  --secondary: #455d7a;
+  --highlight: #f95959;
+  --primary: #e3e3e3;
+}
 body {
-  background-color: gray;
+  color: var(--primary);
+  background-color: var(--bg);
 }
 .App {
   max-width: 750px;
@@ -8,7 +15,25 @@ body {
 
 .TaskList {
   margin: auto;
-  /* width: 60%; */
+  border: solid var(--secondary);
+  border-radius: 15px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+.Task {
+  border: 3px solid var(--secondary);
+  border-radius: 15px;
+  padding: 5px;
+}
+
+hr {
+  border: hidden;
+  border-top: 3px solid var(--secondary);
+  border-radius: 2px;
 }
 
 .Header {
