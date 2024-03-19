@@ -1,5 +1,10 @@
-version: '3'
+version: "3"
 services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./templates:/etc/nginx/templates
+
   backend:
     build: ./backend/
     env_file: .env
@@ -8,7 +13,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: [ "sh", "-c", "./bin/migrate up && ./bin/api/api"]
+    command: ["sh", "-c", "./bin/migrate up && ./bin/api/api"]
     develop:
       watch:
         - path: ./backend
@@ -23,7 +28,7 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U todo_user -d todo_db" ]
+      test: ["CMD-SHELL", "pg_isready -U todo_user -d todo_db"]
       interval: 3s
       timeout: 5s
       retries: 5
@@ -31,14 +36,15 @@ services:
 
   frontend:
     build: ./frontend/
+    env_file: .env
     ports:
       - "127.0.0.1:3000:3000"
     develop:
       watch:
-      - action: sync
-        path: ./frontend
-        target: /usr/src/app
-        ignore:
-          - node_modules/
-      - action: rebuild
-        path: package.json
+        - action: sync
+          path: ./frontend
+          target: /usr/src/app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json

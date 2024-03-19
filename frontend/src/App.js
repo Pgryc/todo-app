@@ -1,20 +1,14 @@
-import './App.css';
-import TaskList from './components/TaskList';
+import "./App.css";
+import TaskList from "./components/TaskList";
 
 function App() {
   return (
     <>
-      <section className="Header">
-        Hello, i am a header
-      </section>
+      <section className="Header">Hello, i am a header</section>
       <div className="App">
-        <TaskList>
-
-        </TaskList>
+        <TaskList></TaskList>
       </div>
-      <section className="Footer">
-        Hello, i am a footer
-      </section>
+      <section className="Footer">Hello, i am a footer</section>
     </>
   );
 }
