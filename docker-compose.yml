@@ -4,6 +4,19 @@ services:
     image: nginx
     volumes:
       - ./templates:/etc/nginx/templates
+    environment:
+      - NGINX_HOST=my_server
+      - NGINX_API_URL=http://backend:8080
+      - NGINX_APP_URL=http://frontend:3000
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: always
+    depends_on:
+      - frontend
+      - backend
+    links:
+      - backend
+      - frontend
 
   backend:
     build: ./backend/
